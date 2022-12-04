@@ -1,0 +1,21 @@
+(ns day-01
+  (:require [clojure.string :as string])
+  (:require [split-by :refer [split-by]]))
+
+
+(defn read-input []
+  (let [input (slurp "day_01_input.txt")]
+    (map
+     (fn [elf_calories] (map #(Integer/parseInt %) elf_calories))
+     (split-by empty? (string/split-lines input)))))
+
+(defn part-one [input] 
+  (apply max (map #(reduce + %) input)))
+
+(defn part-two [input]
+  (reduce + (take-last 3 (sort (map #(reduce + %) input)))))
+
+(defn -main [& _args]
+  (let [input (read-input)]
+    (println "Part one:" (part-one input))
+    (println "Part two:" (part-two input))))

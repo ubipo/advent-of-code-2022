@@ -1,0 +1,4 @@
+{:deps
+ {split-by/split-by {:local/root "./"}}
+
+ :paths ["."]}
