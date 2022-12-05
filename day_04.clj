@@ -3,9 +3,7 @@
 
 
 (defn parse-assignment-str [assignment]
-  (let [bounds (map parse-long (str/split assignment #"-"))]
-    {:lower (first bounds)
-     :upper (second bounds)}))
+  (zipmap [:lower :upper] (map parse-long (str/split assignment #"-"))))
 
 (defn parse-assignment-pair-str [assignment-pair-str]
   (map parse-assignment-str (str/split assignment-pair-str #",")))

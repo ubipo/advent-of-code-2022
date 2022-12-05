@@ -1,6 +1,6 @@
 (ns day-05
   (:require [clojure.string :as str])
-  (:require [split-by :refer [split-by]]))
+  (:require [split :refer [split-by]]))
 
 
 (def column-width (count "[X] "))

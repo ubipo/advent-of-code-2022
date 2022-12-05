@@ -1,6 +1,6 @@
 (ns day-01
   (:require [clojure.string :as string])
-  (:require [split-by :refer [split-by]]))
+  (:require [split :refer [split-by]]))
 
 
 (defn read-input []

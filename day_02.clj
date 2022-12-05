@@ -1,5 +1,6 @@
 (ns day-02
-  (:require [clojure.string :as string]))
+  (:require [clojure.string :as string])
+  (:require [split :refer [split-on]]))
 
 
 ;; For part one, the second column (X/Y/Z) is my played shape
@@ -16,9 +17,10 @@
 ;; 2/Z: Win
 
 (defn parse-round [round-string]
-  (let [choices (string/split round-string #" ")]
-    {:adversary-shape (- (int (first (first choices))) (int \A))
-     :second-column (- (int (first (second choices))) (int \X))}))
+  (zipmap [:adversary-shape :second-column]
+          (map (fn [min-char char] (- (int char) (int min-char)))
+           [\A \X]
+           (map first (split-on \space (char-array round-string))))))
 
 (defn read-input []
   (map parse-round (string/split-lines (slurp "day_02.txt"))))
@@ -26,8 +28,8 @@
 (defn interpret-round
   "Interpret a round for part one or two by remapping the :second-column"
   [round second-column-key]
-  {:adversary-shape (:adversary-shape round)
-   second-column-key (:second-column round)})
+  (assoc round
+         second-column-key (:second-column round)))
 
 (defn round-outcome
   "Outcome of the round as a number: 0 for a tie, 1 for a win, 2 for a loss"
