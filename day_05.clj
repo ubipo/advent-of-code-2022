@@ -24,7 +24,7 @@
 
 (defn read-input []
   (let [[stacks-lines moves-lines]
-        (split-by empty? (str/split-lines (slurp "day_05.txt")))]
+        (split-by empty? (str/split-lines (slurp "input/day_05.txt")))]
     {:stacks (parse-stacks-lines stacks-lines)
      :moves (parse-moves-lines moves-lines)}))
 

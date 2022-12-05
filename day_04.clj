@@ -9,7 +9,7 @@
   (map parse-assignment-str (str/split assignment-pair-str #",")))
 
 (defn read-input []
-  (let [assignment-pairs (str/split-lines (slurp "day_04.txt"))]
+  (let [assignment-pairs (str/split-lines (slurp "input/day_04.txt"))]
     (map parse-assignment-pair-str assignment-pairs)))
 
 (defn fully-contains?

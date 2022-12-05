@@ -4,7 +4,7 @@
 
 
 (defn read-input [] 
-  (let [rucksacks-strings (str/split-lines (slurp "day_03.txt"))] 
+  (let [rucksacks-strings (str/split-lines (slurp "input/day_03.txt"))] 
     (map char-array rucksacks-strings)))
 
 (defn split-in-twine [items]

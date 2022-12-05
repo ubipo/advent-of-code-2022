@@ -23,7 +23,7 @@
            (map first (split-on \space (char-array round-string))))))
 
 (defn read-input []
-  (map parse-round (string/split-lines (slurp "day_02.txt"))))
+  (map parse-round (string/split-lines (slurp "input/day_02.txt"))))
 
 (defn interpret-round
   "Interpret a round for part one or two by remapping the :second-column"
