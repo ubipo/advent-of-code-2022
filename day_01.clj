@@ -4,7 +4,7 @@
 
 
 (defn read-input []
-  (let [input (slurp "day_01_input.txt")]
+  (let [input (slurp "day_01.txt")]
     (map
      (fn [elf_calories] (map #(Integer/parseInt %) elf_calories))
      (split-by empty? (string/split-lines input)))))
