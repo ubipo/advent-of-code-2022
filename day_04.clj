@@ -4,7 +4,9 @@
 
 
 (defn parse-assignment-str [assignment]
-  (zipmap [:lower :upper] (map parse-long (str/split assignment #"-"))))
+  (->> (str/split assignment #"-")
+       (map parse-long)
+       (zipmap [:lower :upper])))
 
 (defn parse-assignment-pair-str [assignment-pair-str]
   (map parse-assignment-str (str/split assignment-pair-str #",")))
@@ -26,9 +28,9 @@
       (fully-contains? assignment-b assignment-a)))
 
 (defn part-one [input]
-  (count (filter 
-          #(either-one-fully-contains? (first %) (second %)) 
-          input)))
+  (->> input
+       (filter #(either-one-fully-contains? (first %) (second %)))
+        count))
 
 (defn overlap?
   "Returns true if assignment-a and assignment-b overlap."
@@ -37,9 +39,9 @@
        (<= (:lower assignment-b) (:upper assignment-a))))
 
 (defn part-two [input]
-  (count (filter
-          #(overlap? (first %) (second %))
-          input)))
+  (->> input
+       (filter #(overlap? (first %) (second %)))
+       count))
 
 (defn -main [& _args]
   (let [input (load-input)]

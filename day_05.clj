@@ -20,7 +20,9 @@
   (map
    #(zipmap
      [:amount :from :to]
-     (map parse-long (rest (re-matches #"move (\d+) from (\d+) to (\d+)" %))))
+     (->> (re-matches #"move (\d+) from (\d+) to (\d+)" %)
+          rest
+          (map parse-long)))
    moves-lines))
 
 (defn load-input []
@@ -46,13 +48,17 @@
 (defn apply-moves [is-multi-move stacks moves]
   (reduce (partial apply-move is-multi-move) stacks moves))
 
-(defn part-one [input] 
-  (str/join
-   (map first (apply-moves no-multi-move (:stacks input) (:moves input)))))
+(defn stack-heads-str [is-multi-move stacks moves]
+  (->> moves
+       (apply-moves is-multi-move stacks)
+       (map first)
+       (str/join)))
+
+(defn part-one [input]
+  (stack-heads-str no-multi-move (:stacks input) (:moves input)))
 
 (defn part-two [input]
-  (str/join
-   (map first (apply-moves multi-move (:stacks input) (:moves input)))))
+  (stack-heads-str multi-move (:stacks input) (:moves input)))
 
 (defn -main [& _args]
   (let [input (load-input)]

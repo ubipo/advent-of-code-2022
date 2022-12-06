@@ -13,7 +13,10 @@
   (apply max (map #(reduce + %) input)))
 
 (defn part-two [input]
-  (reduce + (take-last 3 (sort (map #(reduce + %) input)))))
+  (->> (map #(reduce + %) input)
+       sort
+       (take-last 3)
+       (reduce +)))
 
 (defn -main [& _args]
   (let [input (load-input)]

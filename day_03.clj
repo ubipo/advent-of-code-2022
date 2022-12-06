@@ -11,8 +11,11 @@
 (defn split-in-twine [items]
   (split-at (/ (count items) 2) items))
 
-(defn common-item [compartments] 
-  (first (apply set/intersection (map set compartments))))
+(defn common-item [compartments]
+  (->> compartments
+       (map set)
+       (apply set/intersection)
+       first))
 
 (defn item-priority [item] 
   (let [item-int (int item)]
@@ -29,9 +32,10 @@
 (defn part-two
   "Total score assuming the second column is the desired round outcome"
   []
-  (reduce + (map
-             #(item-priority (common-item %))
-             (partition 3 (load-input)))))
+  (->> (load-input)
+       (partition 3)
+       (map #(item-priority (common-item %)))
+       (reduce +)))
 
 (defn -main [& _args]
   (println "Part one: " (part-one))

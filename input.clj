@@ -1,7 +1,6 @@
 (ns input
   (:require [clj-http.client :as http]
-            [clojure.java.io :refer [make-parents]]
-            [clojure.string :as str]))
+            [clojure.java.io :refer [make-parents]]))
 
 (defn load-day-input [day]
   (let [day-cache-filename (format "input/day_%02d.txt" day)]
@@ -14,7 +13,6 @@
                (str "https://adventofcode.com/2022/day/" day "/input")
                {:headers {:Cookie (str "session=" %)}}))
             :body
-            str/trim 
             (#(let [day-input %] 
                 (spit day-cache-filename day-input) 
                 day-input)))))))

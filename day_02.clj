@@ -21,7 +21,10 @@
   (zipmap [:adversary-shape :second-column]
           (map (fn [min-char char] (- (int char) (int min-char)))
            [\A \X]
-           (map first (split-on \space (char-array round-string))))))
+           (->> round-string
+                char-array
+                (split-on \space)
+                (map first)))))
 
 (defn load-input []
   (map parse-round (string/split-lines (load-day-input 2))))
