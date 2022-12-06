@@ -1,4 +1,6 @@
 {:deps
- {split-by/split-by {:local/root "./"}}
+ {input/input {:local/root "./"}
+  split-by/split-by {:local/root "./"}
+  clj-http/clj-http {:mvn/version "3.12.3"}}
 
  :paths ["."]}

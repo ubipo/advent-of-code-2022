@@ -1,5 +1,6 @@
 (ns day-04
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [input :refer [load-day-input]]))
 
 
 (defn parse-assignment-str [assignment]
@@ -8,8 +9,8 @@
 (defn parse-assignment-pair-str [assignment-pair-str]
   (map parse-assignment-str (str/split assignment-pair-str #",")))
 
-(defn read-input []
-  (let [assignment-pairs (str/split-lines (slurp "input/day_04.txt"))]
+(defn load-input []
+  (let [assignment-pairs (str/split-lines (load-day-input 4))]
     (map parse-assignment-pair-str assignment-pairs)))
 
 (defn fully-contains?
@@ -41,6 +42,6 @@
           input)))
 
 (defn -main [& _args]
-  (let [input (read-input)]
+  (let [input (load-input)]
     (println "Part one:" (part-one input))
     (println "Part two:" (part-two input))))

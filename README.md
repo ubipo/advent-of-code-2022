@@ -15,9 +15,18 @@ $ # ... until ...
 $ clj -M -m day-25
 ```
 
+## Puzzle Inputs
+
+The puzzle inputs are downloaded automatically using an
+[adventofcode.com](https://adventofcode.com/) session cookie stored in the
+`session_cookie` file in the project root (not checked into git). The input
+files are also cached as `input/day-XX.txt` to avoid downloading them again. The
+automatic download can therefore be bypassed by creating the cached input file
+manually.
+
 ## Challenge Structure
 
-Each day's challenge solution `day-XX.clj` contains a `read-input` function that
-parses the day's input file `day-XX.txt`. Additionally it contains a `part-one`
+Each day's puzzle solution `day-XX.clj` contains a `load-input` function that
+loads and parses the day's puzzle input. Additionally it contains a `part-one`
 and `part-two` function to solve the two parts of the challenge. Finally, the
 `-main` function calls these and prints their results.

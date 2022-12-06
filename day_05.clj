@@ -1,6 +1,7 @@
 (ns day-05
-  (:require [clojure.string :as str])
-  (:require [split :refer [split-by]]))
+  (:require [clojure.string :as str]
+            [input :refer [load-day-input]]
+            [split :refer [split-by]]))
 
 
 (def column-width (count "[X] "))
@@ -22,9 +23,9 @@
      (map parse-long (rest (re-matches #"move (\d+) from (\d+) to (\d+)" %))))
    moves-lines))
 
-(defn read-input []
+(defn load-input []
   (let [[stacks-lines moves-lines]
-        (split-by empty? (str/split-lines (slurp "input/day_05.txt")))]
+        (split-by empty? (str/split-lines (load-day-input 5)))]
     {:stacks (parse-stacks-lines stacks-lines)
      :moves (parse-moves-lines moves-lines)}))
 
@@ -54,6 +55,6 @@
    (map first (apply-moves multi-move (:stacks input) (:moves input)))))
 
 (defn -main [& _args]
-  (let [input (read-input)]
+  (let [input (load-input)]
     (println "Part one:" (part-one input))
     (println "Part two:" (part-two input))))

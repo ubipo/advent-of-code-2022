@@ -1,10 +1,11 @@
 (ns day-03
-  (:require [clojure.string :as str])
-  (:require [clojure.set :as set]))
+  (:require [clojure.set :as set]
+            [clojure.string :as str]
+            [input :refer [load-day-input]]))
 
 
-(defn read-input [] 
-  (let [rucksacks-strings (str/split-lines (slurp "input/day_03.txt"))] 
+(defn load-input [] 
+  (let [rucksacks-strings (str/split-lines (load-day-input 3))] 
     (map char-array rucksacks-strings)))
 
 (defn split-in-twine [items]
@@ -23,14 +24,14 @@
 (defn part-one []
   (reduce + (map
              #(item-priority (common-item (split-in-twine %)))
-             (read-input))))
+             (load-input))))
 
 (defn part-two
   "Total score assuming the second column is the desired round outcome"
   []
   (reduce + (map
              #(item-priority (common-item %))
-             (partition 3 (read-input)))))
+             (partition 3 (load-input)))))
 
 (defn -main [& _args]
   (println "Part one: " (part-one))

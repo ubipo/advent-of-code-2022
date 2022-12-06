@@ -1,6 +1,7 @@
 (ns day-02
-  (:require [clojure.string :as string])
-  (:require [split :refer [split-on]]))
+  (:require [clojure.string :as string]
+            [input :refer [load-day-input]]
+            [split :refer [split-on]]))
 
 
 ;; For part one, the second column (X/Y/Z) is my played shape
@@ -22,8 +23,8 @@
            [\A \X]
            (map first (split-on \space (char-array round-string))))))
 
-(defn read-input []
-  (map parse-round (string/split-lines (slurp "input/day_02.txt"))))
+(defn load-input []
+  (map parse-round (string/split-lines (load-day-input 2))))
 
 (defn interpret-round
   "Interpret a round for part one or two by remapping the :second-column"
@@ -71,6 +72,6 @@
   (reduce + (map #(round-score-part-two (interpret-round % :outcome)) input)))
 
 (defn -main [& _args] 
-  (let [input (read-input)] 
+  (let [input (load-input)] 
     (println "Part one: " (part-one input)) 
     (println "Part two: " (part-two input))))
