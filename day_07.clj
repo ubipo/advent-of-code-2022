@@ -1,7 +1,8 @@
 (ns day-07
   (:require [clojure.string :as str]
             [input :refer [load-day-input]]
-            [split :refer [split-by-inclusive]]))
+            [split :refer [split-by-inclusive]]
+            [clojure.core.match :refer [match]]))
 
 
 (def shell-prompt "$ ")
@@ -20,14 +21,13 @@
    (reduce
     (fn [[root-dir cwd] [command-line & output-lines]]
       (let [[command args] (str/split (subs command-line (count shell-prompt)) #"\s+" 2)]
-        (case command
-          "cd" [root-dir (case args
-                           "/" []
-                           ".." (if (empty? cwd) [] (pop cwd))
-                           (conj cwd args))]
-          "ls" (let [children (into {} (map parse-ls-line output-lines))
-                     new-root-dir (if (empty? cwd) children (assoc-in root-dir cwd children))]
-                 [new-root-dir cwd]))))
+        (match [command args]
+          ["cd" "/"] [root-dir []]
+          ["cd" ".."] [root-dir (if (empty? cwd) [] (pop cwd))]
+          ["cd" _] [root-dir (conj cwd args)]
+          ["ls" _] (let [children (into {} (map parse-ls-line output-lines)) 
+                         new-root-dir (if (empty? cwd) children (assoc-in root-dir cwd children))] 
+                     [new-root-dir cwd]))))
     [{} []]
     commands)))
 

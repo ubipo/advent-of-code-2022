@@ -1,6 +1,7 @@
 {:deps
  {input/input {:local/root "./"}
   split-by/split-by {:local/root "./"}
-  clj-http/clj-http {:mvn/version "3.12.3"}}
+  clj-http/clj-http {:mvn/version "3.12.3"}
+  org.clojure/core.match {:mvn/version "1.0.0"}}
 
  :paths ["."]}
