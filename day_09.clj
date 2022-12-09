@@ -31,24 +31,23 @@
 
 (defn expand-moves [moves]
   (->> moves
-       (map (fn [[direction distance]]
-              (repeat distance direction)))
+       (map (fn [[direction distance]] (repeat distance direction)))
        (apply concat)))
 
 (defn part-one [moves]
   (as-> moves $
     (expand-moves $)
     (reduce
-     (fn [[head tail visited-tail-positions] direction]
+     (fn [[head tail tail-visited] direction]
        (let [new-head (follow-direction head direction)
              new-tail (follow-next-knot tail new-head)]
-         [new-head new-tail (conj visited-tail-positions new-tail)]))
+         [new-head new-tail (conj tail-visited new-tail)]))
      [[0 0] [0 0] #{}] $)
-    (let [[_head _tail visited-tail-positions] $]
-      visited-tail-positions)
+    (let [[_head _tail tail-visited] $]
+      tail-visited)
     (count $)))
 
-(defn follow-next-knots [tail-knots next]
+(defn follow-next-consecutively [tail-knots next]
   (drop 1
    (reduce
     (fn [new-tail-knots knot]
@@ -61,15 +60,14 @@
     (expand-moves $)
     (reduce
      ;; Tail knots are ordered closest-to-head to farthest-from-head
-     (fn [[head tail-knots visited-tail-positions] direction]
+     (fn [[head tail-knots tail-visited] direction]
        (let [new-head (follow-direction head direction)
-             ;; Each tail knot follows the next knot in the list
-             new-tail-knots (follow-next-knots tail-knots new-head)]
-         [new-head new-tail-knots (conj visited-tail-positions (last new-tail-knots))]))
+             new-tail-knots (follow-next-consecutively tail-knots new-head)]
+         [new-head new-tail-knots (conj tail-visited (last new-tail-knots))]))
      [[0 0] (repeat 9 [0 0]) #{}]
      $)
-    (let [[_head _tail visited-tail-positions] $]
-      visited-tail-positions)
+    (let [[_head _tail tail-visited] $]
+      tail-visited)
     (count $)))
 
 (defn -main [& _args]
