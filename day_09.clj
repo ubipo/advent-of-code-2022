@@ -3,8 +3,6 @@
             [input :refer [load-day-input]]))
 
 
-(defn parse-num-char [char] (- (int char) (int \0)))
-
 (defn load-input []
   (->> (load-day-input 9)
        str/split-lines
