@@ -1,6 +1,6 @@
 (ns split)
 
-  
+
 (defn split-by
   "Returns a vector of vectors for each group in coll seperated by elements for 
    which pred returns logical true, excluding the seperator element itself"
