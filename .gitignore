@@ -1,5 +1,6 @@
 /.clj-kondo
 /.cpcache
 /.lsp
+/.calva
 /session_cookie
 /input/
